@@ -1,0 +1,1 @@
+* 18 * * * sh /var/www/html/cron/push-github.sh
