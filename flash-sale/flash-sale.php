@@ -4,7 +4,7 @@ test();
 function test()
 {
     try{
-        $key = 'shoe5_';
+        $key = 'shoe566_';
         $handler = new MiaoSha($key);
         $handler->setStock(10);
         $user = rand(1,10000);
