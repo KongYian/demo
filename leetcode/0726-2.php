@@ -15,7 +15,7 @@ X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
 C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 
  */
-$num = '1994';
+$num = '4';
 echo intToRoman($num);
 
 function intToRoman($num) {
@@ -29,19 +29,21 @@ function intToRoman($num) {
         9 => 'IX',
         10 => 'X',
         40 => 'XL',
-        40 => 'XL',
-        'XC' => 90,
-        'CD' => 400,
-        'CM' => 900,
-        'L' => 50,
-        'C' => 100,
-        'D' => 500,
-        'M' => 1000,
+        50 => 'L',
+        90 => 'XC',
+        100 => 'C',
+        400 => 'CD',
+        500 => 'D',
+        900 => 'CM',
+        1000 => 'M',
     ];
-    $a =array_reverse($arr);
-    var_dump($a);
+    $s = '';
     if($num < 10) {
-
+        if(array_key_exists($num,$arr)) {
+            return $arr[$num];
+        } else {
+            echo 111;
+        }
     }
 }
 
