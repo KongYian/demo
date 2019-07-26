@@ -16,7 +16,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 
  */
 
-$num = 321;
+$num = 1994;
 echo intToRoman($num);
 
 function intToRoman($num) {
@@ -52,6 +52,8 @@ function intToRoman($num) {
         800 => 'DDD',
         900 => 'CM',
         1000 => 'M',
+        2000 => 'MM',
+        3000 => 'MMM',
     ];
     $s = '';
     if($num <= 10) {
@@ -76,6 +78,17 @@ function intToRoman($num) {
             $second = ($num - $first) % 100;
             $third = $num - $second - $first;
             return $arr[$third] . $arr[$second] . $arr[$first];
+        }
+    }
+    if($num <= 3999) {
+        if(array_key_exists($num,$arr)) {
+            return $arr[$num];
+        } else {
+            $first = $num % 10 ;
+            $second = ($num - $first) % 100;
+            $third = ($num - $second - $first) % 1000;
+            $fourth = $num - $third - $second - $first;
+            return $arr[$fourth] . $arr[$third] . $arr[$second] . $arr[$first];
         }
     }
 }
