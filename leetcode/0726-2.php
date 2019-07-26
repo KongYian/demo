@@ -46,6 +46,13 @@ function intToRoman($num) {
     if($num <= 10) {
         return $arr[$num];
     }
+    if($num <= 100) {
+        if(array_key_exists($num,$arr)) {
+            return $arr[$num];
+        } else {
+            
+        }
+    }
 }
 
 
