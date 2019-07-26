@@ -72,12 +72,10 @@ function intToRoman($num) {
         if(array_key_exists($num,$arr)) {
             return $arr[$num];
         } else {
-            $first = $num % 100 ;
+            $first = $num % 10 ;
             $second = ($num - $first) % 100;
             $third = $num - $second - $first;
-            echo $first.PHP_EOL;
-            echo $second.PHP_EOL;
-            echo $third.PHP_EOL;
+            return $arr[$third] . $arr[$second] . $arr[$first];
         }
     }
 }
