@@ -51,9 +51,12 @@ function intToRoman($num) {
             return $arr[$num];
         } else {
             $first = $num % 10 ;
-            $second = intval($num / 10);
+            $second = $num - $first;
             echo $first.PHP_EOL;
             echo $second.PHP_EOL;
+            if(array_key_exists($second,$arr)) {
+                return $arr[$second] . $arr[$first];
+            }
         }
     }
 }
