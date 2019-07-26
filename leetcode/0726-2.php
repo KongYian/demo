@@ -19,7 +19,7 @@ $num = '4';
 echo intToRoman($num);
 
 function intToRoman($num) {
-    if($num > 1 || $num > 3999) {
+    if($num < 1 || $num > 3999) {
         return false;
     }
     $arr = [
