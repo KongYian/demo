@@ -50,7 +50,7 @@ function intToRoman($num) {
         if(array_key_exists($num,$arr)) {
             return $arr[$num];
         } else {
-            
+            $ = $num % 10 ;
         }
     }
 }
