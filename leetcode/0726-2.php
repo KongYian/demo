@@ -16,10 +16,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 
  */
 
-$num = 320;
-echo $num % 100;
-exit;
-$num = '96';
+$num = 321;
 echo intToRoman($num);
 
 function intToRoman($num) {
@@ -77,8 +74,10 @@ function intToRoman($num) {
         } else {
             $first = $num % 100 ;
             $second = ($num - $first) % 100;
-
-
+            $third = $num - $second - $first;
+            echo $first.PHP_EOL;
+            echo $second.PHP_EOL;
+            echo $third.PHP_EOL;
         }
     }
 }
