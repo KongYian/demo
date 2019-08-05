@@ -1,17 +1,44 @@
 <?php
-$rs = new Redis();
-$rs->connect('127.0.0.1');
 
-//$rs->flushAll();exit; //清空缓存
-//post_handler($rs);exit; //新增文章
+run(6);
 
-//投票
-try {
-    echo vote_article($rs,1,2);
-} catch (\Exception $e) {
-    echo $e->getMessage();
+function run($mode = 0)
+{
+    $rs = new Redis();
+    $rs->connect('127.0.0.1');
+
+    switch ($mode) {
+        case 0 :
+            $rs->flushAll();break; //清空缓存
+        case 1 :
+            post_handler($rs);break;
+        case 2 :
+        //投票
+            try {
+                echo vote_article($rs,1,2);
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+            break;
+        case 3 :
+            //获取文章
+            var_dump(get_articles($rs,'score:' ));
+        case 4 :
+            $add = [
+                'article:2',
+                'article:3',
+            ];
+            add_group($rs, 'php', $add);
+            break;
+        case 5 :
+            init_group_combine($rs,'score:php');
+        case 6 :
+            get_group_articles($rs,'score:php');
+    }
 }
-exit;
+
+
+
 
 
 function post_handler($rs)
@@ -67,3 +94,56 @@ function vote_article(Redis $rs, $articleId = '', $user = '')
     $rs->hIncrBy($article, 'votes', 1);
     return 'vote success';
 }
+
+function get_articles(Redis $rs, $zkey, $page = 1)
+{
+    $limit = 10;
+    $start = ($page - 1) * $limit;
+    $end = $start + $limit - 1;
+    $keys = $rs->zRevRange($zkey, $start, $end); //获取多个文章ID
+    $articles = [];
+    foreach ($keys as $key) {
+        $article = $rs->hGetAll($key);
+        $articles[] = $article;
+    }
+    return $articles;
+}
+
+function add_group(Redis $rs, $group = '', $add = [])
+{
+    foreach ($add as $item) {
+        $rs->sAdd('group:' . $group, $item);
+    }
+}
+
+function init_group_combine(Redis $rs, $zkey)
+{
+    $rs->zInter($zkey,['group:php','score:']);
+    return $rs->zRevRange($zkey,0,-1,true);
+}
+
+function get_group_articles(Redis $rs, $zkey)
+{
+    if ($rs->exists($zkey)) {
+        var_dump(get_articles($rs,$zkey));
+    } else {
+        $rs->set($zkey,json_encode(init_group_combine($rs,$zkey)),60);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
