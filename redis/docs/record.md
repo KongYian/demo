@@ -25,3 +25,9 @@ membcached通过黑名单的方式隐藏列表中的元素，从而避免对元�
     - incrby
     - decrby
     - incrbyfloat 
+
+
+## 3 持久化选项
+
+###3.1 快照持久化
+###3.2 
